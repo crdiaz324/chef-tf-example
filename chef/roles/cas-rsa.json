@@ -1,0 +1,50 @@
+{
+  "name": "cas-rsa",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "cassandra": {
+      "user": "cassandra",
+      "group": "cassandra",
+      "install_java": false,
+      "package_name": "dse-full",
+      "service_name": "dse",
+      "version": "5.0.5",
+      "release": "1",
+      "conf_dir": "/etc/dse/cassandra",
+      "seed_discovery": {
+        "use_chef_search": true,
+        "search_role": "cas-rsa"
+      },
+      "dse": {
+        "credentials": {
+          "username": "<insert your academy username here>",
+          "password": "<insert your academy password here>"
+        }
+      },
+      "config": {
+        "cluster_name": "ProdDSE1",
+        "endpoint_snitch": "Ec2Snitch"
+      }    
+    },
+    "java": {
+      "install_flavor": "oracle",
+      "jdk_version": "8",
+      "oracle": {
+        "accept_oracle_download_terms": true
+      }
+    } 
+  },
+  "override_attributes": {
+
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[java]",
+    "recipe[cassandra-dse::default]"
+  ],
+  "env_run_lists": {
+
+  }
+}
+
